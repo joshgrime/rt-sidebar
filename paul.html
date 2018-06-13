@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    	<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    	<meta name="description" content="">
+    	<meta name="author" content="">
+
+    	<title>My Sidebar</title>
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+		<style>
+			body {
+				margin-top: 35px;
+				margin-bottom: 25px;
+			}
+			.jumbotron {
+				background-color: #79ccc6;
+				padding-top: 1px;
+				padding-bottom: 6px;
+				margin-bottom: 9px;
+				border: 1px solid #2E3B50;
+			}
+			.panel-group  {
+				margin-bottom: 5px;
+			}
+			.panel  {
+				margin-bottom: 5px;
+				border: 1px solid #2E3B50;
+			}
+			.panel-heading  {
+				background-color: #79ccc6;
+			}
+			.footer a {
+				color: white;
+			}
+			.footer {
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				height: 25px;
+				background-color: #c0c0c0;
+				width: 100%;
+				padding-top:2px;
+				border-top: 1px solid #2E3B50;
+			}
+		</style>
+	</head>
+
+	<body ng-app="">
+		<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #c0c0c0; border-bottom: 1px solid #2E3B50">
+	      <div class="container">
+			<div id="navbar">
+	          	<ul class="nav navbar-nav text-center">
+					<li style="color:white;" ><span class="glyphicon glyphicon-chevron-right"></span><input type="text" placeholder="Enter Account ID" ng-model="accountName" id="theInput" value="971" class="text-center" style="width: 180px; color: black;" /><span class="glyphicon glyphicon-chevron-left"></span></li>
+				</ul>
+			</div>
+	      </div>
+	    </nav>
+</br>
+
+	<div class="container">
+		  <div class="panel-group" id="accordion">
+		    <div class="panel">
+		      <div class="panel-heading">
+		        <h4 class="panel-title">
+		          <a data-toggle="collapse" href="#collapse1">Dashboard</a>
+		        </h4>
+		      </div>
+		      <div id="collapse1" class="panel-collapse collapse in">
+		        <div class="panel-body">
+							<span><a title="Main Homepage the customer will see upon login" href="https://dashboard.responsetap.com/account/{{accountName}}/reports/dashboard" target="_blank"  style="color:#2E3B50;">Main Dashboard <span class="glyphicon glyphicon-play"></span></a></span><br/ >
+							<span><a title="List of calls for the customer" href="https://dashboard.responsetap.com/account/{{accountName}}/reports/callLog" target="_blank"  style="color:#2E3B50;">Call Log <span class="glyphicon glyphicon-play"></span></a></span><br/ >
+							<span><a title="List of Websites on the customer account" href="https://dashboard.responsetap.com/account/{{accountName}}/websites" target="_blank"  style="color:#2E3B50;">Websites <span class="glyphicon glyphicon-play"></span></a></span><br/ >
+							<span><a title="List of Single Numbers currently on the customers account" href="https://dashboard.responsetap.com/account/{{accountName}}/singleNumbers" target="_blank"  style="color:#2E3B50;">Single Numbers <span class="glyphicon glyphicon-play"></span></a></span><br/ >
+							<span><a title="List of Users currently on the customers account" href="https://dashboard.responsetap.com/account/{{accountName}}/users" target="_blank"  style="color:#2E3B50;">Users <span class="glyphicon glyphicon-play"></span></a></span><br/ ><br />
+							<span><a title="Insight Hub" href="https://dashboard.responsetap.com/insight/links/insight?accountId={{accountName}}&pathSegment=/app/" target="_blank"  style="color:#2E3B50;">Insight Hub <span class="glyphicon glyphicon-play"></span></a></span><br/ >
+						</div>
+						</div>
+		      </div>
+		    </div>
+		    <div class="panel ">
+		      <div class="panel-heading">
+		        <h4 class="panel-title">
+		          <a data-toggle="collapse" href="#collapse2">Admin</a>
+		        </h4>
+		      </div>
+		      <div id="collapse2" class="panel-collapse collapse">
+		        <div class="panel-body">
+							<span><a title="Edit screen of customers account, mainly used to increase single number limit" href="https://dashboard.responsetap.com/admin/account/{{accountName}}/edit" target="_blank"  style="color:#2E3B50;">Edit <span class="glyphicon glyphicon-play"></span></a></span><br/ >
+							<span><a title="Edit account features" href="https://dashboard.responsetap.com/admin/account/edit/{{accountName}}/features" target="_blank"  style="color:#2E3B50;">Features <span class="glyphicon glyphicon-play"></span></a></span><br/ >
+							<span><a title="Used to check the overall numbers in the customers Pool of Dynamic Numbers" href="https://dashboard.responsetap.com/admin/account/{{accountName}}/numberLimit" target="_blank"  style="color:#2E3B50;">Account Number Limit <span class="glyphicon glyphicon-play"></span></a></span><br/ >
+							<span><a title="Add additional placeholders to a website" href="https://dashboard.responsetap.com/admin/account/{{accountName}}/website/placeholderLimit" target="_blank"  style="color:#2E3B50;">Placeholder Limit<span class="glyphicon glyphicon-play"></span></a></span><br/ >
+							<span><a title="Set the pool size of individual placeholders" href="https://dashboard.responsetap.com/admin/account/{{accountName}}/placeholder/numberLimit" target="_blank"  style="color:#2E3B50;">Placeholder Max<span class="glyphicon glyphicon-play"></span></a></span><br/ >
+							<span><a title="Delete numbers from the customers dynamic pool" href="https://dashboard.responsetap.com/admin/account/{{accountName}}/numberMaintenance" target="_blank"  style="color:#2E3B50;">Remove Number <span class="glyphicon glyphicon-play"></span></a></span><br/ >
+							<span><a title="Number Audit" target="_blank" href="https://dashboard.responsetap.com/admin/auditNumber"  style="color:#2E3B50;">Number Audit<span class="glyphicon glyphicon-play"></span></a></span><br/ >
+							<span><a title="Account restrictions" href="https://dashboard.responsetap.com/admin/account/{{accountName}}/edit/restrictions" target="_blank" style="color:#2E3B50;">Restrictions <span class="glyphicon glyphicon-play"></span></a></span><br/ >
+							<br />
+							<span><a title="List accounts on New Finance" href="http://fin-prd-app01.rtap.net:8090/#/accounts" target="_blank"  style="color:#2E3B50;">New Finance <span class="glyphicon glyphicon-play"></span></a></span><br/ >
+						</div>
+		      </div>
+		    </div>
+
+		    <div class="panel">
+		      <div class="panel-heading">
+		        <h4 class="panel-title">
+		          <a data-toggle="collapse" href="#collapse3">Search</a>
+		        </h4>
+		      </div>
+		      <div id="collapse3" class="panel-collapse collapse">
+		        <div class="panel-body">
+							<input type="text"  ng-model="adminSearch" id="crmInput" value="971" class="text-center" style="width: 160px; color: =black;" placeholder="Enter Customer Name" /><br />
+							<span><a title="Opens the Manage Admin screen" target="_blank" href="https://dashboard.responsetap.com/admin/accounts?page={{adminSearch}}" style="color:#2E3B50;">Search Admin<span class="glyphicon glyphicon-play"></span></a></span><br/ >
+							<span><a title="Opens the CRM within the customer search pane" target="_blank" href="https://eu6.salesforce.com/_ui/search/ui/UnifiedSearchResults?str=*{{adminSearch}}*"  style="color:#2E3B50;">Search CRM<span class="glyphicon glyphicon-play"></span></a></span><br/ >
+						</div>
+		      </div>
+		    </div>
+
+				<div class="panel">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" href="#collapse4">Artery</a>
+						</h4>
+					</div>
+					<div id="collapse4" class="panel-collapse collapse">
+						<div class="panel-body">
+							<span><a title="Artery V1" target="_blank" href="http://artery.support.rtap.net/"  style="color:#2E3B50;">Artery V1<span class="glyphicon glyphicon-play"></span></a></span><br/ >
+							<span><a title="Artery V2" target="_blank" href="http://artery.support.rtap.net/artv2/index.php#"  style="color:#2E3B50;">Artery V2<span class="glyphicon glyphicon-play"></span></a></span><br/ >
+						</div>
+					</div>
+				</div>
+
+				<div class="panel">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" href="#collapse5">TP Search</a>
+						</h4>
+					</div>
+					<div id="collapse5" class="panel-collapse collapse">
+						<div class="panel-body">
+							<input type="text"  ng-model="TPSearch" id="TPInput" value="971" class="text-center" style="width: 160px; color: =Black;" placeholder="Enter TP Ticket Number" /><br />
+							<span><a title="Opens TP" target="_blank" href="https://responsetap.tpondemand.com/helpdesk/request/{{TPSearch}}"  style="color:#2E3B50;">Search Ticket Number<span class="glyphicon glyphicon-play"></span></a></span><br/ >
+							<span><a title="Create TP" target="_blank" href="https://responsetap.tpondemand.com/helpdesk/request/new?product=447&requestType=1"  style="color:#2E3B50;">New TP Request<span class="glyphicon glyphicon-play"></span></a></span><br/ >
+					</div>
+				</div>
+			</div>
+
+			<div class="panel">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" href="#collapse6">Misc</a>
+					</h4>
+				</div>
+				<div id="collapse6" class="panel-collapse collapse">
+					<div class="panel-body">
+						<a href="http://finance-gui.rtap.net/signin" target="_blank"  style="color:#2E3B50;">Finance System <span class="glyphicon glyphicon-play"></span></a><br/>
+							<a href="http://triton.dev.rtap.net/login?next=/" target="_blank"  style="color:#2E3B50;">Triton <span class="glyphicon glyphicon-play"></span></a><br/>
+							<a href="https://dashboard.bandwidth.com/portal/report/#login:" target="_blank"  style="color:#2E3B50;">Bandwidth Portal <span class="glyphicon glyphicon-play"></span></a><br/>
+							<a href="https://analytics.google.com/analytics/web/" target="_blank"  style="color:#2E3B50;">GUA <span class="glyphicon glyphicon-play"></span></a><br/>
+							<a href="http://jira.responsetap.lan/secure/Dashboard.jspa" target="_blank"  style="color:#2E3B50;">Jira (Old) <span class="glyphicon glyphicon-play"></span></a><br/>
+							<br/>
+							<a href="https://docs.google.com/spreadsheets/d/1rtn92gz9upg87HAUe6hOFSEieXbFU6jMlu-bY7-TT8g/edit#gid=0" target="_blank"  style="color:#2E3B50;">Dealeron OEM <span class="glyphicon glyphicon-play"></span></a><br/>
+							<a href="https://docs.google.com/spreadsheets/d/1XUT1w9K6lcOi-eDL1XVEWUmXeeYI5YiSjV0P8UvSuCM/edit#gid=742213616" target="_blank"  style="color:#2E3B50;">Dealeron SEM <span class="glyphicon glyphicon-play"></span></a><br/>
+					</div>
+			</div>
+			</div>
+
+				<div class="panel">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" href="#collapse7">Prefix Change</a>
+						</h4>
+					</div>
+					<div id="collapse7" class="panel-collapse collapse">
+						<div class="panel-body">
+							<input type="text"  ng-model="Account" id="Account" value="971" class="text-center" style="width: 160px; color: =Black;" placeholder="Enter Account Number" /><br/>
+							<input type="text"  ng-model="Source" id="Source" value="971" class="text-center" style="width: 160px; color: =Black;" placeholder="Enter Source/Website ID" /><br/>
+							<span><a title="Change Prefix" target="_blank" href="https://dashboard.responsetap.com/admin/account/{{Account}}/websites/{{Source}}/numberPlaceHolders"  style="color:#2E3B50;">Change PH Prefix<span class="glyphicon glyphicon-play"></span></a></span>
+						</div>
+				</div>
+		  </div>
+
+		</div>
+
+
+		<div class="footer text-center" >
+				<a href="http://wiki.support.rtap.net/" target="_blank"  style="color:#2E3B50;">KB <span class="glyphicon glyphicon-book"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="https://dashboard.responsetap.com/apidocs" target="_blank"  style="color:#2E3B50;">API <span class="glyphicon glyphicon-random"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="https://responsetap365.sharepoint.com/sites/Integrations/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FIntegrations%2FShared%20Documents%2FIntegrations" target="_blank"  style="color:#2E3B50;">INT <span class="glyphicon glyphicon-link"></span></a>&nbsp;&nbsp;&nbsp;
+				<a href="https://responsetap.force.com/communityhub/s/" target="_blank"  style="color:#2E3B50;">COM <span class="glyphicon glyphicon-user"></span></a>
+		</div>
+
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+		<script>
+			$(document).ready(function() {
+
+				$('#theInput').focus(function(){
+					$('#theInput').val('');
+				});
+
+				$('#crmInput').focus(function(){
+					$('#crmInput').val('');
+				});
+				$('#TPInput').focus(function(){
+					$('#TPInput').val('');
+				});
+				$('#Account').focus(function(){
+					$('#Account').val('');
+				});
+				$('#Source').focus(function(){
+					$('#Source').val('');
+				});
+			});
+		</script>
+	</body>
+</html>

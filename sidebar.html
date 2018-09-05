@@ -3,8 +3,7 @@
   <head>
     <title>Super Admin Helper</title>
 
-    <script
-            src="https://code.jquery.com/jquery-3.3.1.min.js"
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
 
@@ -132,7 +131,7 @@
     function clickHandler () {
 
       var id = this.id;
-console.log('clicked '+id);
+
       /* This object is a map of span IDs to the
          relevant URLs. If you need to include a
          search, add the variable as: {}
@@ -147,12 +146,7 @@ console.log('clicked '+id);
         insightHub:'https://dashboard.responsetap.com/insight/links/insight?accountId={}&pathSegment=/app/',
         edit:'https://dashboard.responsetap.com/admin/account/{{}}/edit',
         features:'https://dashboard.responsetap.com/admin/account/edit/{}/features',
-        accountNumberLimit:'https://dashboard.responsetap.com/admin/account//numberLimit',
-
-
-
-
-
+        accountNumberLimit:'https://dashboard.responsetap.com/admin/account//numberLimit'
       }
 
       var linkType = undefined;
@@ -171,7 +165,7 @@ console.log('clicked '+id);
 
         else {
 
-          var searchTerm = function (linkType) {
+          var searchTerm = (function(linkType) {
             var term;
             if (linkType === 1) {
               term = $('#accountId').val();
@@ -183,17 +177,13 @@ console.log('clicked '+id);
               term = $('#tpSearch').val();
             }
             return term;
-          }
+          })(linkType);
 
-          var st = searchTerm(linkType);
+          url = linkDump[id].replace('{}', searchTerm);
+          window.open(url,'_blank');
 
-          url = linkDump[id].replace('{}', st);
         }
-
-
-
       }
-
     }
 
     function rollover () {

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Super Admin Helper</title>
+
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/color/jquery.color-2.1.2.min.js"
+            integrity="sha256-H28SdxWrZ387Ldn0qogCzFiUDDxfPiNIyJX7BECQkDE="
+            crossorigin="anonymous"></script>
+
+    <style type="text/css">
+
+    body {
+      font-family: Calibri;
+    }
+
+    div {
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+      border: 1px solid black;
+      border-radius: 10px;
+    }
+
+    span {
+      width: inherit;
+      display: inherit;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      text-align: center;
+    }
+
+    input {
+      width: 80%;
+      height: 30px;
+      border-radius: 10px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      outline: none;
+      text-align: center;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    </style>
+
+  </head>
+  <body>
+
+    <!--
+
+    link = non-dynamic link
+    dlink = dynamic link from #accountId input
+    d2link = dynamic link from #adminSearch input
+    d3link = dynamic link from #tpSearch input
+
+    -->
+
+    <div id="accountIdDiv">
+      <input id="accountId"></input>
+    </div>
+
+    <div id="dashboardLinksDiv">
+      <span id="mainDashboard" class="dlink">Main Dashboard</span>
+      <span id="callLog" class="dlink">Call Log</span>
+      <span id="websites" class="dlink">Websites</span>
+      <span id="singleNumbers" class="dlink">Single Numbers</span>
+      <span id="users" class="dlink">Users</span>
+      <span id="insightHub" class="dlink">Insight Hub</span>
+    </div>
+
+    <div id="adminLinksDiv">
+      <span id="edit" class="dlink">Edit</span>
+      <span id="features" class="dlink">Features</span>
+      <span id="accountNumberLimit" class="dlink">Account Number Limit</span>
+      <span id="placeholderLimit" class="dlink">Placeholder Limit</span>
+      <span id="placeholderMax" class="dlink">Placeholder Max</span>
+      <span id="removeNumber" class="dlink">Remove Number</span>
+      <span id="numberAudit" class="dlink">Number Audit</span>
+      <span id="restrictions" class="dlink">Restrictions</span>
+      <span id="newFinance" class="dlink">New Finance</span>
+    </div>
+
+    <div id="searchAdminDiv">
+    <input id="adminSearch"></input>
+      <span id="searchAdmin" class="d2link">Search Admin</span>
+      <span id="searchCRM" class="d2link">Search CRM</span>
+    </div>
+
+    <div id="arteryDiv">
+      <span id="arteryv1" class="link">Artery v1</span>
+      <span id="arteryv2" class="link">Artery v2</span>
+      <span id="articuno" class="link">Articuno</span>
+    </div>
+
+    <div id="tpSearchDiv">
+      <input id="tpSearch"></span>
+      <span id="searchTpTicket" class="d3link">Search Ticket Number</span>
+      <span id="newTpRequest" class="link">New TP Request</span>
+    </div>
+
+    <div id="miscLinksDiv">
+      <span id="financeSystem" class="link">Finance System</span>
+      <span id="triton" class="link">Triton</span>
+      <span id="bandwithPortal" class="link">Bandwith Portal</span>
+      <span id="guaLink" class="link">GUA</span>
+      <span id="jiraLink" class="link">Jira (Old)</span>
+      <span id="dealeronSEM" class="link">Dealeron OEM</span>
+      <span id="dealeronSEM" class="link">Dealeron SEM</span>
+    </div>
+
+    <script type="application/javascript">
+
+    function addEventListeners () {
+      var links = document.getElementsByTagName('span');
+      for (let x of links) {
+        $(x).click(clickHandler);
+        $(x).on('mouseenter', rollover);
+        $(x).on('mouseleave', rolloff);
+      }
+    }
+
+    function clickHandler () {
+
+      var id = this.id;
+console.log('clicked '+id);
+      /* This object is a map of span IDs to the
+         relevant URLs. If you need to include a
+         search, add the variable as: {}
+      */
+
+      var linkDump = {
+        mainDashboard:'https://dashboard.responsetap.com/account/{}/reports/dashboard',
+        callLog:'https://dashboard.responsetap.com/account/{}/reports/callLog',
+        websites:'https://dashboard.responsetap.com/account/{}/websites',
+        singleNumbers:'https://dashboard.responsetap.com/account/{}/singleNumbers',
+        users:'https://dashboard.responsetap.com/account/{}/users',
+        insightHub:'https://dashboard.responsetap.com/insight/links/insight?accountId={}&pathSegment=/app/',
+        edit:'https://dashboard.responsetap.com/admin/account/{{}}/edit',
+        features:'https://dashboard.responsetap.com/admin/account/edit/{}/features',
+        accountNumberLimit:'https://dashboard.responsetap.com/admin/account//numberLimit',
+
+
+
+
+
+      }
+
+      var linkType = undefined;
+      if (this.className == 'link') linkType = 0;
+      else if (this.className == 'dlink') linkType = 1;
+      else if (this.className == 'd2link') linkType = 2;
+      else if (this.className == 'd3link') linkType = 3;
+
+      if (linkType !== undefined) {
+
+        var url;
+
+        if (linkType === 0) {
+          url = linkDump[id];
+        }
+
+        else {
+
+          var searchTerm = function (linkType) {
+            var term;
+            if (linkType === 1) {
+              term = $('#accountId').val();
+            }
+            else if (linkType === 2) {
+              term = $('#adminSearch').val();
+            }
+            else if (linkType === 3) {
+              term = $('#tpSearch').val();
+            }
+            return term;
+          }
+
+          var st = searchTerm(linkType);
+
+          url = linkDump[id].replace('{}', st);
+        }
+
+
+
+      }
+
+    }
+
+    function rollover () {
+      $(this).off('mouseenter', rollover);
+        $(this).animate({
+                backgroundColor: "black",
+                color: "#fff"
+        }, 100 );
+    }
+
+    function rolloff () {
+      var x = this;
+      $(this).off('mouseleave', rolloff);
+      $(this).animate({
+                backgroundColor: "white",
+                color: "black"
+      }, 400 );
+      setTimeout(function(){
+        $(x).on('mouseenter', rollover);
+        $(x).on('mouseleave', rolloff);
+      },500);
+    }
+
+    $(document).ready(addEventListeners);
+
+    </script>
+
+  </body>
+</html>

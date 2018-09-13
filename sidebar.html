@@ -50,6 +50,15 @@
       font-weight: bold;
     }
 
+    #rtLogo {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      padding-bottom: 10px;
+      width:40px;
+      height:40px;
+    }
+
     </style>
 
   </head>
@@ -63,9 +72,10 @@
     d3link = dynamic link from #tpSearch input
 
     -->
+    <img id="rtLogo" src="https://dashboard.responsetap.com/app/insight/static/images/rt-logo.c575ac92a5d3d4b845339dfe0168077a.png" />
 
     <div id="accountIdDiv">
-      <input id="accountId">
+      <span>Account Admin<input id="accountId"></span>
     </div>
 
     <div id="dashboardLinksDiv">
@@ -90,7 +100,7 @@
     </div>
 
     <div id="searchAdminDiv">
-    <input id="adminSearch">
+    <span>Admin Search<input id="adminSearch"></span>
       <span id="searchAdmin" class="d2link">Search Admin</span>
       <span id="searchCRM" class="d2link">Search CRM</span>
     </div>
@@ -102,7 +112,7 @@
     </div>
 
     <div id="tpSearchDiv">
-      <input id="tpSearch"></span>
+      <span>Target Process<input id="tpSearch"></span>
       <span id="searchTpTicket" class="d3link">Search Ticket Number</span>
       <span id="newTpRequest" class="link">New TP Request</span>
     </div>
@@ -113,11 +123,42 @@
       <span id="bandwithPortal" class="link">Bandwith Portal</span>
       <span id="guaLink" class="link">GUA</span>
       <span id="jiraLink" class="link">Jira (Old)</span>
-      <span id="dealeronSEM" class="link">Dealeron OEM</span>
+      <span id="dealeronOEM" class="link">Dealeron OEM</span>
       <span id="dealeronSEM" class="link">Dealeron SEM</span>
     </div>
 
+    <div id="prefixChangeDiv">
+      <span id="prefixChange" class="doubleLink">Change Prefix</span>
+      <span>Account:<input id="prefixAccountInput"></span>
+      <span>Source:<input id="prefixSourceInput"></span>
+    </div>
+
     <script type="application/javascript">
+
+    var colours = [
+      {
+        element:'div',
+        information:{
+        color:'#254f91',
+        border:'#ffffff',
+        fontColor:'#ffffff'
+        }
+      },
+      {
+        element:'body',
+        information:{
+        color:'#183159'
+        }
+      },
+      {
+        element:'span',
+        information:{
+        rolloverColor:'#2b69b5',
+        fontColor:'#FFFFFF',
+        rolloverFontColor:'#000000'
+        }
+      }
+    ];
 
     function addEventListeners () {
       var links = document.getElementsByTagName('span');
@@ -144,16 +185,34 @@
         singleNumbers:'https://dashboard.responsetap.com/account/{}/singleNumbers',
         users:'https://dashboard.responsetap.com/account/{}/users',
         insightHub:'https://dashboard.responsetap.com/insight/links/insight?accountId={}&pathSegment=/app/',
-        edit:'https://dashboard.responsetap.com/admin/account/{{}}/edit',
+        edit:'https://dashboard.responsetap.com/admin/account/{}/edit',
         features:'https://dashboard.responsetap.com/admin/account/edit/{}/features',
-        accountNumberLimit:'https://dashboard.responsetap.com/admin/account//numberLimit'
-      }
+        accountNumberLimit:'https://dashboard.responsetap.com/admin/account/{}/numberLimit',
+        numberMaintenance:'https://dashboard.responsetap.com/admin/account/{}/numberMaintenance',
+        auditNumber:'https://dashboard.responsetap.com/admin/auditNumber',
+        restrictions:'https://dashboard.responsetap.com/admin/account/{}/edit/restrictions',
+        newFinance:'http://fin-prd-app01.rtap.net:8090/#/accounts',
+        searchAdmin:'https://dashboard.responsetap.com/admin/accounts?page={}',
+        searchCRM:'https://eu6.salesforce.com/_ui/search/ui/UnifiedSearchResults?str=*{}*',
+        arteryv1:'http://artery.support.rtap.net/',
+        arteryv2:'http://artery.support.rtap.net/artv2/index.php',
+        searchTpTicket:'https://responsetap.tpondemand.com/helpdesk/request/{}',
+        newTpRequest:'https://responsetap.tpondemand.com/helpdesk/request/new?product=447&requestType=1',
+        financeSystem:'http://finance-gui.rtap.net/signin',
+        triton:'http://triton.dev.rtap.net/login?next=/',
+        bandwithPortal:'https://dashboard.bandwidth.com/portal/report/#login:',
+        guaLink:'https://analytics.google.com/analytics/web/',
+        jiraLink:'http://jira.responsetap.lan/secure/Dashboard.jspa',
+        dealeronOEM:'https://docs.google.com/spreadsheets/d/1rtn92gz9upg87HAUe6hOFSEieXbFU6jMlu-bY7-TT8g/edit#gid=0',
+        dealeronSEM:'https://docs.google.com/spreadsheets/d/1XUT1w9K6lcOi-eDL1XVEWUmXeeYI5YiSjV0P8UvSuCM/edit#gid=742213616'
+      };
 
       var linkType = undefined;
       if (this.className == 'link') linkType = 0;
       else if (this.className == 'dlink') linkType = 1;
       else if (this.className == 'd2link') linkType = 2;
       else if (this.className == 'd3link') linkType = 3;
+      else if (this.className == 'doubleLink') linkType = 4;
 
       if (linkType !== undefined) {
 
@@ -161,6 +220,11 @@
 
         if (linkType === 0) {
           url = linkDump[id];
+        }
+
+        else if (linkType === 4) {
+          var accountId = $('#prefixAccountInput').val();
+          var sourceId = $('#prefixSourceInput').val();
         }
 
         else {
@@ -186,20 +250,38 @@
       }
     }
 
+    function getSpanColors () {
+      var info = colours.filter(obj => {return obj.element === 'span';});
+      return info[0];
+    };
+
+    function getDivColors () {
+      var info = colours.filter(obj => {return obj.element === 'div';});
+      return info[0];
+    };
+
     function rollover () {
+
+      var span = getSpanColors();
+      var div = getDivColors();
+
       $(this).off('mouseenter', rollover);
         $(this).animate({
-                backgroundColor: "black",
-                color: "#fff"
+                backgroundColor:span.information.rolloverColor,
+                color: span.information.rolloverFontColor
         }, 100 );
     }
 
     function rolloff () {
+
+      var span = getSpanColors();
+      var div = getDivColors();
+
       var x = this;
       $(this).off('mouseleave', rolloff);
       $(this).animate({
-                backgroundColor: "white",
-                color: "black"
+                backgroundColor: div.information.color,
+                color: span.information.fontColor
       }, 400 );
       setTimeout(function(){
         $(x).on('mouseenter', rollover);
@@ -207,7 +289,28 @@
       },500);
     }
 
+    function applyColours () {
+      for (let x of colours) {
+        var elsType = x.element;
+        var els = document.getElementsByTagName(elsType);
+        for (let y of els) {
+          if (x.information.color !== undefined) {
+            $(y).css('background-color', x.information.color);
+          }
+          if (x.information.borderColor !== undefined) {
+            $(y).css('border-color', x.information.borderColor);
+          }
+          if (x.information.fontColor !== undefined) {
+            $(y).css('color', x.information.fontColor);
+          }
+        }
+      }
+
+    }
+
+
     $(document).ready(addEventListeners);
+    $(document).ready(applyColours);
 
     </script>
 
